@@ -1,20 +1,36 @@
 package id27131.q2;
 
-import java.util.Date;
+public class Result extends Exam {
+    private double obtainedMarks;
+    private String remarks;
 
-public class Result extends Exam{
-    private double obtainedMarks, remarks;
+    public Result(int id, String createdDate, String updatedDate,
+                  String schoolName, String address, String phoneNumber, String email,
+                  String departmentName, String departmentCode,
+                  String teacherName, String subject, String teacherEmail, String teacherPhone,
+                  String studentName, int rollNumber, String grade, String contactNumber,
+                  String courseName, String courseCode, int creditHours,
+                  String examName, double maxMarks, String examDate,
+                  double obtainedMarks, String remarks)
+            throws SchoolDataException {
+        super(id, createdDate, updatedDate, schoolName, address, phoneNumber, email,
+              departmentName, departmentCode, teacherName, subject, teacherEmail, teacherPhone,
+              studentName, rollNumber, grade, contactNumber,
+              courseName, courseCode, creditHours, examName, maxMarks, examDate);
+        setObtainedMarks(obtainedMarks);
+        setRemarks(remarks);
+    }
 
-    public Result(int id, Date createdDate, Date updatedDate, String schoolName, String address, String email,
-            int phoneNumber, String departmentName, int departmentCode, String teacherName, String subject,
-            String teacherEmail, int phone, String studentName, String grade, int rollNumber, int contactNumber,
-            String courseName, int courseCode, int creditHours, String examName, double maxMarks, Date examDate,
-            double obtainedMarks, double remarks) {
-        super(id, createdDate, updatedDate, schoolName, address, email, phoneNumber, departmentName, departmentCode,
-                teacherName, subject, teacherEmail, phone, studentName, grade, rollNumber, contactNumber, courseName,
-                courseCode, creditHours, examName, maxMarks, examDate);
+    public double getObtainedMarks() { return obtainedMarks; }
+    public void setObtainedMarks(double obtainedMarks) throws SchoolDataException {
+        if (obtainedMarks < 0) throw new SchoolDataException("Obtained marks cannot be negative");
         this.obtainedMarks = obtainedMarks;
+    }
+
+    public String getRemarks() { return remarks; }
+    public void setRemarks(String remarks) throws SchoolDataException {
+        if (remarks == null || remarks.trim().isEmpty())
+            throw new SchoolDataException("Remarks cannot be empty");
         this.remarks = remarks;
     }
-    
 }

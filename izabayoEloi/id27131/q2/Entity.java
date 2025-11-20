@@ -1,13 +1,33 @@
 package id27131.q2;
-import java.util.Date;
 
 public class Entity {
     private int id;
-    private Date createdDate, updatedDate;
-    public Entity(int id, Date createdDate, Date updatedDate) {
+    private String createdDate;
+    private String updatedDate;
+
+    public Entity(int id, String createdDate, String updatedDate) throws SchoolDataException {
+        setId(id);
+        setCreatedDate(createdDate);
+        setUpdatedDate(updatedDate);
+    }
+
+    public int getId() { return id; }
+    public void setId(int id) throws SchoolDataException {
+        if (id <= 0) throw new SchoolDataException("ID must be greater than 0");
         this.id = id;
+    }
+
+    public String getCreatedDate() { return createdDate; }
+    public void setCreatedDate(String createdDate) throws SchoolDataException {
+        if (createdDate == null || createdDate.trim().isEmpty())
+            throw new SchoolDataException("Created date cannot be empty");
         this.createdDate = createdDate;
+    }
+
+    public String getUpdatedDate() { return updatedDate; }
+    public void setUpdatedDate(String updatedDate) throws SchoolDataException {
+        if (updatedDate == null || updatedDate.trim().isEmpty())
+            throw new SchoolDataException("Updated date cannot be empty");
         this.updatedDate = updatedDate;
     }
 }
-
