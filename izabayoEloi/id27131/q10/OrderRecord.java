@@ -1,5 +1,5 @@
 package id27131.q10;
 
-public class Customer {
+public class OrderRecord {
     
 }
