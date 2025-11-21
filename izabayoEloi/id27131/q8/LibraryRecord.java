@@ -127,6 +127,7 @@ public final class LibraryRecord {
 
         // ===== Display =====
         System.out.println("\n=== Library Record ===");
+        System.out.println("Work done by Eloi id:27131");
         System.out.println("Library: " + library.getLibraryName() + " | Location: " + library.getLocation());
         System.out.println("Section: " + section.getSectionName() + " | Code: " + section.getSectionCode());
         System.out.println("Book: " + book.getTitle() + " | Author: " + book.getAuthor() + " | ISBN: " + book.getISBN());

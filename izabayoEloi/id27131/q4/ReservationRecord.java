@@ -166,6 +166,7 @@ public final class ReservationRecord {
 
         // ===== Display Summary =====
         System.out.println("\n=== Reservation Summary ===");
+        System.out.println("Work done by Eloi id:27131");
         System.out.println("Hotel: " + hotel.getHotelName() + ", Phone: " + hotel.getPhoneNumber());
         System.out.println("Room: " + room.getRoomNumber() + " (" + room.getRoomType() + "), Price/Night: " + room.getPricePerNight());
         System.out.println("Customer: " + customer.getCustomerName() + ", Contact: " + customer.getContactNumber());

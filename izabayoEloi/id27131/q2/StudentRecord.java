@@ -157,6 +157,7 @@ public final class StudentRecord {
         double averageMarks = ((double) result.getObtainedMarks() / exam.getMaxMarks()) * 100;
 
         System.out.println("\n=== Student Record ===");
+        System.out.println("Work done by Eloi id:27131");
         System.out.println("Student: " + student.getStudentName() + " | Roll: " + student.getRollNumber());
         System.out.println("Course: " + course.getCourseName() + " | Credit Hours: " + course.getCreditHours());
         System.out.println("Exam: " + exam.getExamName() + " | Obtained Marks: " + result.getObtainedMarks());

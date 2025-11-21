@@ -148,6 +148,7 @@ public final class RentalRecord {
 
         // ===== Display Summary =====
         System.out.println("\n=== Vehicle Rental Summary ===");
+        System.out.println("Work done by Eloi id:27131");
         System.out.println("Company: " + company.getCompanyName() + ", Phone: " + company.getPhoneNumber());
         System.out.println("Branch: " + branch.getBranchName() + ", Code: " + branch.getLocationCode());
         System.out.println("Vehicle: " + vehicle.getVehicleType() + " (" + vehicle.getRegistrationNumber() + "), Daily Rate: " + vehicle.getDailyRate());

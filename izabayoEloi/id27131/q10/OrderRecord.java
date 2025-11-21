@@ -127,6 +127,7 @@ public final class OrderRecord {
 
         // ===== Display =====
         System.out.println("\n=== Order Record ===");
+        System.out.println("Work done by Eloi id:27131");
         System.out.println("Store: " + store.getStoreName() + " | Email: " + store.getEmail());
         System.out.println("Category: " + category.getCategoryName() + " | Code: " + category.getCategoryCode());
         System.out.println("Product: " + product.getProductName() + " | Price: " + product.getPrice());

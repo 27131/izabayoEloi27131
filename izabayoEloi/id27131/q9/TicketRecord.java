@@ -127,6 +127,7 @@ public final class TicketRecord {
 
         // ===== Display =====
         System.out.println("\n=== Ticket Record ===");
+        System.out.println("Work done by Eloi id:27131");
         System.out.println("Airline: " + airline.getAirlineName() + " | Contact: " + airline.getContactEmail());
         System.out.println("Flight: " + flight.getFlightNumber() + " | Destination: " + flight.getDestination() + " | Departure: " + flight.getDepartureTime());
         System.out.println("Passenger: " + passenger.getPassengerName() + " | Passport: " + passenger.getPassportNumber());

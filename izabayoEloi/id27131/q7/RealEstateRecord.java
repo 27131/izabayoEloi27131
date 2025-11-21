@@ -131,6 +131,7 @@ public final class RealEstateRecord {
 
         // ===== Display =====
         System.out.println("\n=== Real Estate Record ===");
+        System.out.println("Work done by Eloi id:27131");
         System.out.println("Agency: " + agency.getAgencyName());
         System.out.println("Agent: " + agent.getAgentName() + " | License: " + agent.getLicenseNumber());
         System.out.println("Property: " + property.getPropertyCode() + " | Type: " + property.getPropertyType() + " | Price: " + property.getPrice());

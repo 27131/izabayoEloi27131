@@ -62,6 +62,7 @@ public final class AccountRecord {
         }
 
         System.out.println("\n=== Account Details ===");
+        System.out.println("Work done by Eloi id:27131");
         System.out.println("Bank: " + bank.getBankName() + " | Branch: " + bank.getBranchCode());
         System.out.println("Customer: " + customer.getCustomerName() + " | Account: " + account.getAccountNumber() + " | Balance: " + account.getBalance());
     }
