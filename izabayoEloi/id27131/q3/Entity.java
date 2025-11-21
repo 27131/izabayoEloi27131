@@ -6,28 +6,20 @@ public class Entity {
     private String updatedDate;
 
     public Entity(int id, String createdDate, String updatedDate) throws PayrollDataException {
-        setId(id);
-        setCreatedDate(createdDate);
-        setUpdatedDate(updatedDate);
-    }
-
-    public int getId() { return id; }
-    public void setId(int id) throws PayrollDataException {
-        if (id <= 0) throw new PayrollDataException("ID must be greater than 0");
+        if (id <= 0)
+            throw new PayrollDataException("ID must be greater than 0");
         this.id = id;
-    }
 
-    public String getCreatedDate() { return createdDate; }
-    public void setCreatedDate(String createdDate) throws PayrollDataException {
         if (createdDate == null || createdDate.trim().isEmpty())
             throw new PayrollDataException("Created date cannot be empty");
         this.createdDate = createdDate;
-    }
 
-    public String getUpdatedDate() { return updatedDate; }
-    public void setUpdatedDate(String updatedDate) throws PayrollDataException {
         if (updatedDate == null || updatedDate.trim().isEmpty())
             throw new PayrollDataException("Updated date cannot be empty");
         this.updatedDate = updatedDate;
     }
+
+    public int getId() { return id; }
+    public String getCreatedDate() { return createdDate; }
+    public String getUpdatedDate() { return updatedDate; }
 }

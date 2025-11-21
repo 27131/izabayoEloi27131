@@ -1,49 +1,31 @@
 package id27131.q1;
 
-public class Doctor extends Department {
+public class Doctor {
     private String doctorName;
     private String specialization;
     private String doctorEmail;
-    private String phone; // 10 digits
+    private String phone;
 
-    public Doctor(int id, String createdDate, String updatedDate,
-                  String hospitalName, String address, String hospPhone, String hospEmail,
-                  String departmentName, String departmentCode,
-                  String doctorName, String specialization, String doctorEmail, String phone)
-            throws HospitalDataException {
-        super(id, createdDate, updatedDate, hospitalName, address, hospPhone, hospEmail,
-              departmentName, departmentCode);
-        setDoctorName(doctorName);
-        setSpecialization(specialization);
-        setDoctorEmail(doctorEmail);
-        setPhone(phone);
-    }
-
-    public String getDoctorName() { return doctorName; }
-    public void setDoctorName(String doctorName) throws HospitalDataException {
+    public Doctor(String doctorName, String specialization, String doctorEmail, String phone) throws HospitalDataException {
         if (doctorName == null || doctorName.trim().isEmpty())
             throw new HospitalDataException("Doctor name cannot be empty");
         this.doctorName = doctorName;
-    }
 
-    public String getSpecialization() { return specialization; }
-    public void setSpecialization(String specialization) throws HospitalDataException {
         if (specialization == null || specialization.trim().isEmpty())
             throw new HospitalDataException("Specialization cannot be empty");
         this.specialization = specialization;
-    }
 
-    public String getDoctorEmail() { return doctorEmail; }
-    public void setDoctorEmail(String doctorEmail) throws HospitalDataException {
-        if (doctorEmail == null || !doctorEmail.contains("@"))
-            throw new HospitalDataException("Invalid doctor email");
+        if (doctorEmail == null || !doctorEmail.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$"))
+            throw new HospitalDataException("Invalid email format");
         this.doctorEmail = doctorEmail;
-    }
 
-    public String getPhone() { return phone; }
-    public void setPhone(String phone) throws HospitalDataException {
         if (phone == null || !phone.matches("\\d{10}"))
-            throw new HospitalDataException("Doctor phone must be 10 digits");
+            throw new HospitalDataException("Phone must be 10 digits");
         this.phone = phone;
     }
+
+    public String getDoctorName() { return doctorName; }
+    public String getSpecialization() { return specialization; }
+    public String getDoctorEmail() { return doctorEmail; }
+    public String getPhone() { return phone; }
 }

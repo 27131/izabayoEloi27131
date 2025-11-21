@@ -5,32 +5,17 @@ public class Library extends Entity {
     private String location;
     private String phoneNumber;
 
-    public Library(int id, String createdDate, String updatedDate,
-                   String libraryName, String location, String phoneNumber) throws LibraryDataException {
+    public Library(int id, String createdDate, String updatedDate, String libraryName, String location, String phoneNumber) throws LibraryDataException {
         super(id, createdDate, updatedDate);
-        setLibraryName(libraryName);
-        setLocation(location);
-        setPhoneNumber(phoneNumber);
+        if (libraryName == null || libraryName.isEmpty()) throw new LibraryDataException("Library name cannot be empty");
+        if (location == null || location.isEmpty()) throw new LibraryDataException("Location cannot be empty");
+        if (phoneNumber == null || !phoneNumber.matches("\\d{10}")) throw new LibraryDataException("Phone number must be 10 digits");
+        this.libraryName = libraryName;
+        this.location = location;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getLibraryName() { return libraryName; }
-    public void setLibraryName(String libraryName) throws LibraryDataException {
-        if (libraryName == null || libraryName.trim().isEmpty())
-            throw new LibraryDataException("Library name required");
-        this.libraryName = libraryName;
-    }
-
     public String getLocation() { return location; }
-    public void setLocation(String location) throws LibraryDataException {
-        if (location == null || location.trim().isEmpty())
-            throw new LibraryDataException("Location required");
-        this.location = location;
-    }
-
     public String getPhoneNumber() { return phoneNumber; }
-    public void setPhoneNumber(String phoneNumber) throws LibraryDataException {
-        if (phoneNumber == null || !phoneNumber.matches("\\d{10}"))
-            throw new LibraryDataException("Phone must be 10 digits");
-        this.phoneNumber = phoneNumber;
-    }
 }

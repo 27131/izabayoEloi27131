@@ -5,32 +5,17 @@ public class Bank extends Entity {
     private String branchCode;
     private String address;
 
-    public Bank(int id, String createdDate, String updatedDate,
-                String bankName, String branchCode, String address) throws BankDataException {
+    public Bank(int id, String createdDate, String updatedDate, String bankName, String branchCode, String address) throws BankingDataException {
         super(id, createdDate, updatedDate);
-        setBankName(bankName);
-        setBranchCode(branchCode);
-        setAddress(address);
+        if (bankName == null || bankName.isEmpty()) throw new BankingDataException("Bank name cannot be empty");
+        if (branchCode == null || branchCode.length() < 3) throw new BankingDataException("Branch code must be ≥3 chars");
+        if (address == null || address.isEmpty()) throw new BankingDataException("Address cannot be empty");
+        this.bankName = bankName;
+        this.branchCode = branchCode;
+        this.address = address;
     }
 
     public String getBankName() { return bankName; }
-    public void setBankName(String bankName) throws BankDataException {
-        if (bankName == null || bankName.trim().isEmpty())
-            throw new BankDataException("Bank name required");
-        this.bankName = bankName;
-    }
-
     public String getBranchCode() { return branchCode; }
-    public void setBranchCode(String branchCode) throws BankDataException {
-        if (branchCode == null || branchCode.trim().length() < 3)
-            throw new BankDataException("Branch code ≥ 3 chars");
-        this.branchCode = branchCode;
-    }
-
     public String getAddress() { return address; }
-    public void setAddress(String address) throws BankDataException {
-        if (address == null || address.trim().isEmpty())
-            throw new BankDataException("Address required");
-        this.address = address;
-    }
 }

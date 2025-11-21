@@ -1,28 +1,17 @@
 package id27131.q10;
 
-public class Category extends Store {
+public class Category extends Entity {
     private String categoryName;
     private String categoryCode;
 
-    public Category(int id, String createdDate, String updatedDate,
-                    String storeName, String address, String email,
-                    String categoryName, String categoryCode) throws OnlineShoppingDataException {
-        super(id, createdDate, updatedDate, storeName, address, email);
-        setCategoryName(categoryName);
-        setCategoryCode(categoryCode);
+    public Category(int id, String createdDate, String updatedDate, String categoryName, String categoryCode) throws OrderDataException {
+        super(id, createdDate, updatedDate);
+        if (categoryName == null || categoryName.length() < 3) throw new OrderDataException("Category name must be at least 3 characters");
+        if (categoryCode == null || categoryCode.length() < 3) throw new OrderDataException("Category code must be at least 3 characters");
+        this.categoryName = categoryName;
+        this.categoryCode = categoryCode;
     }
 
     public String getCategoryName() { return categoryName; }
-    public void setCategoryName(String categoryName) throws OnlineShoppingDataException {
-        if (categoryName == null || categoryName.trim().isEmpty())
-            throw new OnlineShoppingDataException("Category name required");
-        this.categoryName = categoryName;
-    }
-
     public String getCategoryCode() { return categoryCode; }
-    public void setCategoryCode(String categoryCode) throws OnlineShoppingDataException {
-        if (categoryCode == null || categoryCode.trim().length() < 3)
-            throw new OnlineShoppingDataException("Category code must be at least 3 characters");
-        this.categoryCode = categoryCode;
-    }
 }

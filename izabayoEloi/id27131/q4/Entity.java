@@ -6,28 +6,19 @@ public class Entity {
     private String updatedDate;
 
     public Entity(int id, String createdDate, String updatedDate) throws ReservationDataException {
-        setId(id);
-        setCreatedDate(createdDate);
-        setUpdatedDate(updatedDate);
+        if (id <= 0) throw new ReservationDataException("ID must be greater than 0");
+        this.id = id;
+
+        if (createdDate == null || createdDate.trim().isEmpty())
+            throw new ReservationDataException("Created date cannot be empty");
+        this.createdDate = createdDate;
+
+        if (updatedDate == null || updatedDate.trim().isEmpty())
+            throw new ReservationDataException("Updated date cannot be empty");
+        this.updatedDate = updatedDate;
     }
 
     public int getId() { return id; }
-    public void setId(int id) throws ReservationDataException {
-        if (id <= 0) throw new ReservationDataException("ID must be > 0");
-        this.id = id;
-    }
-
     public String getCreatedDate() { return createdDate; }
-    public void setCreatedDate(String createdDate) throws ReservationDataException {
-        if (createdDate == null || createdDate.trim().isEmpty())
-            throw new ReservationDataException("Created date required");
-        this.createdDate = createdDate;
-    }
-
     public String getUpdatedDate() { return updatedDate; }
-    public void setUpdatedDate(String updatedDate) throws ReservationDataException {
-        if (updatedDate == null || updatedDate.trim().isEmpty())
-            throw new ReservationDataException("Updated date required");
-        this.updatedDate = updatedDate;
-    }
 }

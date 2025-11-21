@@ -1,39 +1,25 @@
 package id27131.q3;
 
-public class Manager extends Department {
+public class Manager {
     private String managerName;
     private String managerEmail;
-    private String managerPhone;
+    private String phone;
 
-    public Manager(int id, String createdDate, String updatedDate,
-                   String companyName, String address, String phoneNumber, String email,
-                   String departmentName, String departmentCode,
-                   String managerName, String managerEmail, String managerPhone)
-            throws PayrollDataException {
-        super(id, createdDate, updatedDate, companyName, address, phoneNumber, email, departmentName, departmentCode);
-        setManagerName(managerName);
-        setManagerEmail(managerEmail);
-        setManagerPhone(managerPhone);
-    }
-
-    public String getManagerName() { return managerName; }
-    public void setManagerName(String managerName) throws PayrollDataException {
+    public Manager(String managerName, String managerEmail, String phone) throws PayrollDataException {
         if (managerName == null || managerName.trim().isEmpty())
             throw new PayrollDataException("Manager name cannot be empty");
         this.managerName = managerName;
-    }
 
-    public String getManagerEmail() { return managerEmail; }
-    public void setManagerEmail(String managerEmail) throws PayrollDataException {
-        if (managerEmail == null || !managerEmail.contains("@"))
-            throw new PayrollDataException("Invalid manager email");
+        if (managerEmail == null || !managerEmail.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$"))
+            throw new PayrollDataException("Invalid email format");
         this.managerEmail = managerEmail;
+
+        if (phone == null || !phone.matches("\\d{10}"))
+            throw new PayrollDataException("Phone must be 10 digits");
+        this.phone = phone;
     }
 
-    public String getManagerPhone() { return managerPhone; }
-    public void setManagerPhone(String managerPhone) throws PayrollDataException {
-        if (managerPhone == null || !managerPhone.matches("\\d{10}"))
-            throw new PayrollDataException("Manager phone must be 10 digits");
-        this.managerPhone = managerPhone;
-    }
+    public String getManagerName() { return managerName; }
+    public String getManagerEmail() { return managerEmail; }
+    public String getPhone() { return phone; }
 }

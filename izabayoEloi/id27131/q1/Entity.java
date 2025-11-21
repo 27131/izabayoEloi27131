@@ -20,14 +20,14 @@ public class Entity {
     public String getCreatedDate() { return createdDate; }
     public void setCreatedDate(String createdDate) throws HospitalDataException {
         if (createdDate == null || createdDate.trim().isEmpty())
-            throw new HospitalDataException("Created date cannot be empty");
+            throw new HospitalDataException("You have to fill in Created date");
         this.createdDate = createdDate;
     }
 
     public String getUpdatedDate() { return updatedDate; }
     public void setUpdatedDate(String updatedDate) throws HospitalDataException {
         if (updatedDate == null || updatedDate.trim().isEmpty())
-            throw new HospitalDataException("Updated date cannot be empty");
+            throw new HospitalDataException("You have to fill in Updated date");
         this.updatedDate = updatedDate;
     }
 }

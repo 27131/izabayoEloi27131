@@ -5,32 +5,17 @@ public class Store extends Entity {
     private String address;
     private String email;
 
-    public Store(int id, String createdDate, String updatedDate,
-                 String storeName, String address, String email) throws OnlineShoppingDataException {
+    public Store(int id, String createdDate, String updatedDate, String storeName, String address, String email) throws OrderDataException {
         super(id, createdDate, updatedDate);
-        setStoreName(storeName);
-        setAddress(address);
-        setEmail(email);
+        if (storeName == null || storeName.isEmpty()) throw new OrderDataException("Store name cannot be empty");
+        if (address == null || address.isEmpty()) throw new OrderDataException("Address cannot be empty");
+        if (email == null || !email.matches(".+@.+\\..+")) throw new OrderDataException("Invalid email format");
+        this.storeName = storeName;
+        this.address = address;
+        this.email = email;
     }
 
     public String getStoreName() { return storeName; }
-    public void setStoreName(String storeName) throws OnlineShoppingDataException {
-        if (storeName == null || storeName.trim().isEmpty())
-            throw new OnlineShoppingDataException("Store name required");
-        this.storeName = storeName;
-    }
-
     public String getAddress() { return address; }
-    public void setAddress(String address) throws OnlineShoppingDataException {
-        if (address == null || address.trim().isEmpty())
-            throw new OnlineShoppingDataException("Address required");
-        this.address = address;
-    }
-
     public String getEmail() { return email; }
-    public void setEmail(String email) throws OnlineShoppingDataException {
-        if (email == null || !email.matches("^[A-Za-z0-9+_.-]+@(.+)$"))
-            throw new OnlineShoppingDataException("Invalid email format");
-        this.email = email;
-    }
 }

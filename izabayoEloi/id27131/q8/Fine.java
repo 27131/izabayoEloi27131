@@ -1,33 +1,18 @@
 package id27131.q8;
 
-public class Fine extends Borrow {
+public class Fine extends Entity {
     private double fineAmount;
     private int daysLate;
 
-    public Fine(int id, String createdDate, String updatedDate,
-                String libraryName, String location, String phoneNumber,
-                String sectionName, String sectionCode,
-                String title, String author, String ISBN,
-                String memberName, int memberId, String contactNumber,
-                String borrowDate, String returnDate,
-                double fineAmount, int daysLate) throws LibraryDataException {
-        super(id, createdDate, updatedDate, libraryName, location, phoneNumber,
-              sectionName, sectionCode, title, author, ISBN,
-              memberName, memberId, contactNumber,
-              borrowDate, returnDate);
-        setFineAmount(fineAmount);
-        setDaysLate(daysLate);
+    public Fine(int id, String createdDate, String updatedDate, double fineAmount, int daysLate) throws LibraryDataException {
+        super(id, createdDate, updatedDate);
+        if (fineAmount < 0) throw new LibraryDataException("Fine amount cannot be negative");
+        if (daysLate <= 0) throw new LibraryDataException("Days late must be greater than 0");
+        this.fineAmount = fineAmount;
+        this.daysLate = daysLate;
     }
 
     public double getFineAmount() { return fineAmount; }
-    public void setFineAmount(double fineAmount) throws LibraryDataException {
-        if (fineAmount < 0) throw new LibraryDataException("Fine amount cannot be negative");
-        this.fineAmount = fineAmount;
-    }
-
     public int getDaysLate() { return daysLate; }
-    public void setDaysLate(int daysLate) throws LibraryDataException {
-        if (daysLate < 0) throw new LibraryDataException("Days late cannot be negative");
-        this.daysLate = daysLate;
-    }
+    public double calculateFine() { return fineAmount * daysLate; }
 }
