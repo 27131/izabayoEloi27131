@@ -3,47 +3,64 @@ package id27131.q8;
 import java.util.Scanner;
 
 public final class LibraryRecord {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws LibraryException {
         Scanner sc = new Scanner(System.in);
 
-        Library library = null;
-        Section section = null;
-        Book book = null;
-        Member member = null;
-        Borrow borrow = null;
-        Fine fine = null;
-        Payment payment = null;
-        Record record = null;
+        System.out.println("\nWork done by Eloi, id: 27131\n");
 
-        // ===== Library =====
+        // --- Entity ---
+        Entity entity = null;
+        while (entity == null) {
+            try {
+                System.out.print("Entity ID (>0): ");
+                int id = Integer.parseInt(sc.nextLine());
+                System.out.print("Created Date: ");
+                String createdDate = sc.nextLine();
+                System.out.print("Updated Date: ");
+                String updatedDate = sc.nextLine();
+
+                entity = new Entity(id, createdDate, updatedDate);
+            } catch (NumberFormatException e) {
+                System.out.println("ID must be a number. Try again.");
+            }
+        }
+
+        // --- Library ---
+        Library library = null;
         while (library == null) {
             try {
                 System.out.print("Library Name: ");
-                String libName = sc.nextLine();
-                System.out.print("Location: ");
-                String loc = sc.nextLine();
-                System.out.print("Phone (10 digits): ");
-                String phone = sc.nextLine();
-                library = new Library(1, "2025-11-21", "2025-11-21", libName, loc, phone);
-            } catch (LibraryDataException e) {
-                System.out.println("Invalid input: " + e.getMessage());
+                String libraryName = sc.nextLine();
+                System.out.print("Library Location: ");
+                String libraryLocation = sc.nextLine();
+                System.out.print("Library Phone (10 digits): ");
+                String libraryPhone = sc.nextLine();
+
+                library = new Library(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
+                        libraryName, libraryLocation, libraryPhone);
+            } catch (LibraryException e) {
+                System.out.println("Error: " + e.getMessage());
             }
         }
 
-        // ===== Section =====
+        // --- Section ---
+        Section section = null;
         while (section == null) {
             try {
                 System.out.print("Section Name: ");
-                String secName = sc.nextLine();
+                String sectionName = sc.nextLine();
                 System.out.print("Section Code (≥3 chars): ");
-                String secCode = sc.nextLine();
-                section = new Section(1, "2025-11-21", "2025-11-21", secName, secCode);
-            } catch (LibraryDataException e) {
-                System.out.println("Invalid input: " + e.getMessage());
+                String sectionCode = sc.nextLine();
+
+                section = new Section(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
+                        sectionName, sectionCode);
+            } catch (LibraryException e) {
+                System.out.println("Error: " + e.getMessage());
             }
         }
 
-        // ===== Book =====
+        // --- Book ---
+        Book book = null;
         while (book == null) {
             try {
                 System.out.print("Book Title: ");
@@ -52,89 +69,125 @@ public final class LibraryRecord {
                 String author = sc.nextLine();
                 System.out.print("ISBN (≥10 chars): ");
                 String isbn = sc.nextLine();
-                book = new Book(1, "2025-11-21", "2025-11-21", title, author, isbn);
-            } catch (LibraryDataException e) {
-                System.out.println("Invalid input: " + e.getMessage());
+
+                book = new Book(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
+                        title, author, isbn);
+            } catch (LibraryException e) {
+                System.out.println("Error: " + e.getMessage());
             }
         }
 
-        // ===== Member =====
+        // --- Member ---
+        Member member = null;
         while (member == null) {
             try {
                 System.out.print("Member Name: ");
-                String mName = sc.nextLine();
+                String memberName = sc.nextLine();
                 System.out.print("Member ID (>0): ");
-                int mId = Integer.parseInt(sc.nextLine());
+                int memberId = Integer.parseInt(sc.nextLine());
                 System.out.print("Contact Number (10 digits): ");
-                String contact = sc.nextLine();
-                member = new Member(1, "2025-11-21", "2025-11-21", mName, mId, contact);
-            } catch (LibraryDataException e) {
-                System.out.println("Invalid input: " + e.getMessage());
+                String memberContact = sc.nextLine();
+
+                member = new Member(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
+                        memberName, memberId, memberContact);
             } catch (NumberFormatException e) {
-                System.out.println("Member ID must be a number");
+                System.out.println("Member ID must be a number. Try again.");
+            } catch (LibraryException e) {
+                System.out.println("Error: " + e.getMessage());
             }
         }
 
-        // ===== Borrow =====
+        // --- Borrow ---
+        Borrow borrow = null;
         while (borrow == null) {
             try {
                 System.out.print("Borrow Date: ");
-                String bDate = sc.nextLine();
+                String borrowDate = sc.nextLine();
                 System.out.print("Return Date: ");
-                String rDate = sc.nextLine();
-                borrow = new Borrow(1, "2025-11-21", "2025-11-21", bDate, rDate);
-            } catch (LibraryDataException e) {
-                System.out.println("Invalid input: " + e.getMessage());
+                String returnDate = sc.nextLine();
+
+                borrow = new Borrow(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
+                        borrowDate, returnDate);
+            } catch (LibraryException e) {
+                System.out.println("Error: " + e.getMessage());
             }
         }
 
-        // ===== Fine =====
+        // --- Fine ---
+        Fine fine = null;
         while (fine == null) {
             try {
-                System.out.print("Fine Amount: ");
-                double fAmount = Double.parseDouble(sc.nextLine());
-                System.out.print("Days Late (>0): ");
+                System.out.print("Fine Amount (≥0): ");
+                double fineAmount = Double.parseDouble(sc.nextLine());
+                System.out.print("Days Late (≥0): ");
                 int daysLate = Integer.parseInt(sc.nextLine());
-                fine = new Fine(1, "2025-11-21", "2025-11-21", fAmount, daysLate);
-            } catch (LibraryDataException e) {
-                System.out.println("Invalid input: " + e.getMessage());
+
+                fine = new Fine(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
+                        fineAmount, daysLate);
             } catch (NumberFormatException e) {
-                System.out.println("Fine and days late must be numbers");
+                System.out.println("Enter valid numbers for fine and days late.");
+            } catch (LibraryException e) {
+                System.out.println("Error: " + e.getMessage());
             }
         }
 
-        // ===== Payment =====
+        // --- Payment ---
+        Payment payment = null;
         while (payment == null) {
             try {
                 System.out.print("Payment Date: ");
-                String pDate = sc.nextLine();
+                String paymentDate = sc.nextLine();
                 System.out.print("Payment Mode: ");
-                String pMode = sc.nextLine();
-                payment = new Payment(1, "2025-11-21", "2025-11-21", pDate, pMode);
-            } catch (LibraryDataException e) {
-                System.out.println("Invalid input: " + e.getMessage());
+                String paymentMode = sc.nextLine();
+
+                payment = new Payment(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
+                        paymentDate, paymentMode);
+            } catch (LibraryException e) {
+                System.out.println("Error: " + e.getMessage());
             }
         }
 
-        // ===== Record =====
-        while (record == null) {
-            try {
-                record = new Record(1, "2025-11-21", "2025-11-21", fine.calculateFine());
-            } catch (LibraryDataException e) {
-                System.out.println("Invalid input: " + e.getMessage());
-            }
-        }
+        // --- Record ---
+        Record record = new Record(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
+                fine.calculateFine());
 
-        // ===== Display =====
-        System.out.println("\n=== Library Record ===");
-        System.out.println("Work done by Eloi id:27131");
-        System.out.println("Library: " + library.getLibraryName() + " | Location: " + library.getLocation());
-        System.out.println("Section: " + section.getSectionName() + " | Code: " + section.getSectionCode());
-        System.out.println("Book: " + book.getTitle() + " | Author: " + book.getAuthor() + " | ISBN: " + book.getISBN());
-        System.out.println("Member: " + member.getMemberName() + " | ID: " + member.getMemberId() + " | Contact: " + member.getContactNumber());
-        System.out.println("Borrow: " + borrow.getBorrowDate() + " -> " + borrow.getReturnDate());
-        System.out.println("Fine: " + fine.getFineAmount() + " x " + fine.getDaysLate() + " = " + fine.calculateFine());
-        System.out.println("Payment: " + payment.getPaymentDate() + " | Mode: " + payment.getPaymentMode());
+        // --- Display Library Record ---
+        System.out.println("\n=== Final Library Record ===");
+        System.out.println("\nEntity Details");
+        System.out.println("ID: " + entity.getId());
+        System.out.println("Created Date: " + entity.getCreatedDate());
+        System.out.println("Updated Date: " + entity.getUpdatedDate());
+
+        System.out.println("\nLibrary Details");
+        System.out.println("Library Name: " + library.getLibraryName());
+        System.out.println("Location: " + library.getLocation());
+        System.out.println("Phone: " + library.getPhoneNumber());
+
+        System.out.println("\nSection Details");
+        System.out.println("Section Name: " + section.getSectionName());
+        System.out.println("Section Code: " + section.getSectionCode());
+
+        System.out.println("\nBook Details");
+        System.out.println("Title: " + book.getTitle());
+        System.out.println("Author: " + book.getAuthor());
+        System.out.println("ISBN: " + book.getISBN());
+
+        System.out.println("\nMember Details");
+        System.out.println("Member Name: " + member.getMemberName());
+        System.out.println("Member ID: " + member.getMemberId());
+        System.out.println("Contact: " + member.getContactNumber());
+
+        System.out.println("\nBorrow Details");
+        System.out.println("Borrow Date: " + borrow.getBorrowDate());
+        System.out.println("Return Date: " + borrow.getReturnDate());
+
+        System.out.println("\nFine Details");
+        System.out.println("Fine Amount: " + fine.getFineAmount());
+        System.out.println("Days Late: " + fine.getDaysLate());
         System.out.println("Total Fine: " + record.getTotalFine());
+
+        System.out.println("\nPayment Details");
+        System.out.println("Payment Date: " + payment.getPaymentDate());
+        System.out.println("Payment Mode: " + payment.getPaymentMode());
     }
 }

@@ -5,11 +5,11 @@ public class Library extends Entity {
     private String location;
     private String phoneNumber;
 
-    public Library(int id, String createdDate, String updatedDate, String libraryName, String location, String phoneNumber) throws LibraryDataException {
+    public Library(int id, String createdDate, String updatedDate, String libraryName, String location, String phoneNumber) throws LibraryException {
         super(id, createdDate, updatedDate);
-        if (libraryName == null || libraryName.isEmpty()) throw new LibraryDataException("Library name cannot be empty");
-        if (location == null || location.isEmpty()) throw new LibraryDataException("Location cannot be empty");
-        if (phoneNumber == null || !phoneNumber.matches("\\d{10}")) throw new LibraryDataException("Phone number must be 10 digits");
+        if (libraryName == null || libraryName.isEmpty()) throw new LibraryException("Library name cannot be empty");
+        if (location == null || location.isEmpty()) throw new LibraryException("Location cannot be empty");
+        if (phoneNumber == null || !phoneNumber.matches("\\d{10}")) throw new LibraryException("Phone number must be 10 digits");
         this.libraryName = libraryName;
         this.location = location;
         this.phoneNumber = phoneNumber;

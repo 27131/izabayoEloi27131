@@ -4,10 +4,10 @@ public class Section extends Entity {
     private String sectionName;
     private String sectionCode;
 
-    public Section(int id, String createdDate, String updatedDate, String sectionName, String sectionCode) throws LibraryDataException {
+    public Section(int id, String createdDate, String updatedDate, String sectionName, String sectionCode) throws LibraryException {
         super(id, createdDate, updatedDate);
-        if (sectionName == null || sectionName.isEmpty()) throw new LibraryDataException("Section name cannot be empty");
-        if (sectionCode == null || sectionCode.length() < 3) throw new LibraryDataException("Section code must be at least 3 characters");
+        if (sectionName == null || sectionName.isEmpty()) throw new LibraryException("Section name cannot be empty");
+        if (sectionCode == null || sectionCode.length() < 3) throw new LibraryException("Section code must be at least 3 characters");
         this.sectionName = sectionName;
         this.sectionCode = sectionCode;
     }

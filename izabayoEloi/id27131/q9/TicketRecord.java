@@ -3,138 +3,200 @@ package id27131.q9;
 import java.util.Scanner;
 
 public final class TicketRecord {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws TicketDataException {
         Scanner sc = new Scanner(System.in);
 
-        Airline airline = null;
-        Flight flight = null;
-        Passenger passenger = null;
-        Seat seat = null;
-        Ticket ticket = null;
-        Baggage baggage = null;
-        Payment payment = null;
-        Invoice invoice = null;
+        System.out.println("\nWork done by Eloi, id: 27131\n");
 
-        // ===== Airline =====
+        // --- Entity ---
+        Entity entity = null;
+        while (entity == null) {
+            try {
+                System.out.print("Entity ID (>0): ");
+                int id = Integer.parseInt(sc.nextLine());
+                System.out.print("Created Date: ");
+                String createdDate = sc.nextLine();
+                System.out.print("Updated Date: ");
+                String updatedDate = sc.nextLine();
+
+                entity = new Entity(id, createdDate, updatedDate);
+            } catch (NumberFormatException e) {
+                System.out.println("ID must be a number. Try again.");
+            } catch (TicketDataException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+
+        // --- Airline ---
+        Airline airline = null;
         while (airline == null) {
             try {
                 System.out.print("Airline Name: ");
-                String aName = sc.nextLine();
+                String name = sc.nextLine();
                 System.out.print("Address: ");
-                String addr = sc.nextLine();
+                String address = sc.nextLine();
                 System.out.print("Contact Email: ");
                 String email = sc.nextLine();
-                airline = new Airline(1, "2025-11-21", "2025-11-21", aName, addr, email);
+
+                airline = new Airline(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
+                        name, address, email);
             } catch (TicketDataException e) {
-                System.out.println("Invalid input: " + e.getMessage());
+                System.out.println("Error: " + e.getMessage());
             }
         }
 
-        // ===== Flight =====
+        // --- Flight ---
+        Flight flight = null;
         while (flight == null) {
             try {
                 System.out.print("Flight Number: ");
-                String fNum = sc.nextLine();
+                String number = sc.nextLine();
                 System.out.print("Destination: ");
-                String dest = sc.nextLine();
+                String destination = sc.nextLine();
                 System.out.print("Departure Time: ");
-                String depTime = sc.nextLine();
-                flight = new Flight(1, "2025-11-21", "2025-11-21", fNum, dest, depTime);
+                String departureTime = sc.nextLine();
+
+                flight = new Flight(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
+                        number, destination, departureTime);
             } catch (TicketDataException e) {
-                System.out.println("Invalid input: " + e.getMessage());
+                System.out.println("Error: " + e.getMessage());
             }
         }
 
-        // ===== Passenger =====
+        // --- Passenger ---
+        Passenger passenger = null;
         while (passenger == null) {
             try {
                 System.out.print("Passenger Name: ");
-                String pName = sc.nextLine();
+                String name = sc.nextLine();
                 System.out.print("Passport Number: ");
                 String passport = sc.nextLine();
                 System.out.print("Nationality: ");
                 String nationality = sc.nextLine();
-                passenger = new Passenger(1, "2025-11-21", "2025-11-21", pName, passport, nationality);
+
+                passenger = new Passenger(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
+                        name, passport, nationality);
             } catch (TicketDataException e) {
-                System.out.println("Invalid input: " + e.getMessage());
+                System.out.println("Error: " + e.getMessage());
             }
         }
 
-        // ===== Seat =====
+        // --- Seat ---
+        Seat seat = null;
         while (seat == null) {
             try {
                 System.out.print("Seat Number: ");
-                String sNum = sc.nextLine();
+                String seatNumber = sc.nextLine();
                 System.out.print("Seat Type (Economy/Business): ");
-                String sType = sc.nextLine();
-                seat = new Seat(1, "2025-11-21", "2025-11-21", sNum, sType);
+                String seatType = sc.nextLine();
+
+                seat = new Seat(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
+                        seatNumber, seatType);
             } catch (TicketDataException e) {
-                System.out.println("Invalid input: " + e.getMessage());
+                System.out.println("Error: " + e.getMessage());
             }
         }
 
-        // ===== Ticket =====
+        // --- Ticket ---
+        Ticket ticket = null;
         while (ticket == null) {
             try {
                 System.out.print("Ticket Number: ");
-                String tNum = sc.nextLine();
-                System.out.print("Price: ");
+                String ticketNumber = sc.nextLine();
+                System.out.print("Price (>0): ");
                 double price = Double.parseDouble(sc.nextLine());
-                ticket = new Ticket(1, "2025-11-21", "2025-11-21", tNum, price);
-            } catch (TicketDataException e) {
-                System.out.println("Invalid input: " + e.getMessage());
+
+                ticket = new Ticket(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
+                        ticketNumber, price);
             } catch (NumberFormatException e) {
-                System.out.println("Price must be a number");
+                System.out.println("Price must be a number. Try again.");
+            } catch (TicketDataException e) {
+                System.out.println("Error: " + e.getMessage());
             }
         }
 
-        // ===== Baggage =====
+        // --- Baggage ---
+        Baggage baggage = null;
         while (baggage == null) {
             try {
-                System.out.print("Baggage Weight: ");
+                System.out.print("Baggage Weight (kg ≥0): ");
                 double weight = Double.parseDouble(sc.nextLine());
-                System.out.print("Baggage Fee: ");
+                System.out.print("Baggage Fee (≥0): ");
                 double fee = Double.parseDouble(sc.nextLine());
-                baggage = new Baggage(1, "2025-11-21", "2025-11-21", weight, fee);
-            } catch (TicketDataException e) {
-                System.out.println("Invalid input: " + e.getMessage());
+
+                baggage = new Baggage(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
+                        weight, fee);
             } catch (NumberFormatException e) {
-                System.out.println("Weight and fee must be numbers");
+                System.out.println("Weight and fee must be numbers. Try again.");
+            } catch (TicketDataException e) {
+                System.out.println("Error: " + e.getMessage());
             }
         }
 
-        // ===== Payment =====
+        // --- Payment ---
+        Payment payment = null;
         while (payment == null) {
             try {
                 System.out.print("Payment Date: ");
-                String payDate = sc.nextLine();
+                String paymentDate = sc.nextLine();
                 System.out.print("Payment Mode: ");
-                String payMode = sc.nextLine();
-                payment = new Payment(1, "2025-11-21", "2025-11-21", payDate, payMode);
+                String paymentMode = sc.nextLine();
+
+                payment = new Payment(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
+                        paymentDate, paymentMode);
             } catch (TicketDataException e) {
-                System.out.println("Invalid input: " + e.getMessage());
+                System.out.println("Error: " + e.getMessage());
             }
         }
 
-        // ===== Invoice =====
+        // --- Invoice ---
+        Invoice invoice = null;
         while (invoice == null) {
             try {
-                invoice = new Invoice(1, "2025-11-21", "2025-11-21", ticket.getPrice() + baggage.getBaggageFee());
+                double totalFare = ticket.getPrice() + baggage.getBaggageFee();
+                invoice = new Invoice(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
+                        totalFare);
             } catch (TicketDataException e) {
-                System.out.println("Invalid input: " + e.getMessage());
+                System.out.println("Error: " + e.getMessage());
             }
         }
 
-        // ===== Display =====
+        // --- Display Ticket Record ---
         System.out.println("\n=== Ticket Record ===");
-        System.out.println("Work done by Eloi id:27131");
-        System.out.println("Airline: " + airline.getAirlineName() + " | Contact: " + airline.getContactEmail());
-        System.out.println("Flight: " + flight.getFlightNumber() + " | Destination: " + flight.getDestination() + " | Departure: " + flight.getDepartureTime());
-        System.out.println("Passenger: " + passenger.getPassengerName() + " | Passport: " + passenger.getPassportNumber());
-        System.out.println("Seat: " + seat.getSeatNumber() + " | Type: " + seat.getSeatType());
-        System.out.println("Ticket: " + ticket.getTicketNumber() + " | Price: " + ticket.getPrice());
-        System.out.println("Baggage: " + baggage.getBaggageWeight() + "kg | Fee: " + baggage.getBaggageFee());
-        System.out.println("Payment: " + payment.getPaymentDate() + " | Mode: " + payment.getPaymentMode());
+        System.out.println("Work done by Eloi, id:27131");
+
+        System.out.println("\nAirline Details");
+        System.out.println("Name: " + airline.getAirlineName());
+        System.out.println("Address: " + airline.getAddress());
+        System.out.println("Contact Email: " + airline.getContactEmail());
+
+        System.out.println("\nFlight Details");
+        System.out.println("Flight Number: " + flight.getFlightNumber());
+        System.out.println("Destination: " + flight.getDestination());
+        System.out.println("Departure Time: " + flight.getDepartureTime());
+
+        System.out.println("\nPassenger Details");
+        System.out.println("Name: " + passenger.getPassengerName());
+        System.out.println("Passport Number: " + passenger.getPassportNumber());
+        System.out.println("Nationality: " + passenger.getNationality());
+
+        System.out.println("\nSeat Details");
+        System.out.println("Seat Number: " + seat.getSeatNumber());
+        System.out.println("Seat Type: " + seat.getSeatType());
+
+        System.out.println("\nTicket Details");
+        System.out.println("Ticket Number: " + ticket.getTicketNumber());
+        System.out.println("Price: " + ticket.getPrice());
+
+        System.out.println("\nBaggage Details");
+        System.out.println("Weight: " + baggage.getBaggageWeight() + "kg");
+        System.out.println("Fee: " + baggage.getBaggageFee());
+
+        System.out.println("\nPayment Details");
+        System.out.println("Payment Date: " + payment.getPaymentDate());
+        System.out.println("Payment Mode: " + payment.getPaymentMode());
+
+        System.out.println("\nInvoice Details");
         System.out.println("Total Fare: " + invoice.getTotalFare());
     }
 }

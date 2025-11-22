@@ -6,23 +6,16 @@ public class Hotel extends Entity {
     private String phoneNumber;
     private String email;
 
-    public Hotel(int id, String createdDate, String updatedDate, String hotelName, String address, String phoneNumber, String email) throws ReservationDataException {
+    public Hotel(int id, String createdDate, String updatedDate,
+                 String hotelName, String address, String phoneNumber, String email) throws ReservationException {
         super(id, createdDate, updatedDate);
-
-        if (hotelName == null || hotelName.trim().isEmpty())
-            throw new ReservationDataException("Hotel name cannot be empty");
+        if (hotelName == null || hotelName.trim().isEmpty()) throw new ReservationException("Hotel name cannot be empty");
+        if (address == null || address.trim().isEmpty()) throw new ReservationException("Address cannot be empty");
+        if (!phoneNumber.matches("\\d{10}")) throw new ReservationException("Phone must be 10 digits");
+        if (!email.matches(".+@.+")) throw new ReservationException("Invalid email format");
         this.hotelName = hotelName;
-
-        if (address == null || address.trim().isEmpty())
-            throw new ReservationDataException("Address cannot be empty");
         this.address = address;
-
-        if (phoneNumber == null || !phoneNumber.matches("\\d{10}"))
-            throw new ReservationDataException("Phone number must be 10 digits");
         this.phoneNumber = phoneNumber;
-
-        if (email == null || !email.contains("@"))
-            throw new ReservationDataException("Invalid email");
         this.email = email;
     }
 

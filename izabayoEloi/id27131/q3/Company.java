@@ -1,31 +1,28 @@
 package id27131.q3;
 
-public class Company {
+public class Company extends Entity {
     private String companyName;
     private String address;
-    private String phone;
+    private String phoneNumber;
     private String email;
 
-    public Company(String companyName, String address, String phone, String email) throws PayrollDataException {
-        if (companyName == null || companyName.trim().isEmpty())
-            throw new PayrollDataException("Company name cannot be empty");
+    public Company(int id, String createdDate, String updatedDate,
+                   String companyName, String address, String phoneNumber, String email) throws PayrollException {
+        super(id, createdDate, updatedDate);
+
+        if (companyName == null || companyName.trim().isEmpty()) throw new PayrollException("Company name cannot be empty");
+        if (address == null || address.trim().isEmpty()) throw new PayrollException("Address cannot be empty");
+        if (!phoneNumber.matches("\\d{10}")) throw new PayrollException("Phone must be 10 digits");
+        if (!email.matches(".+@.+")) throw new PayrollException("Invalid email format");
+
         this.companyName = companyName;
-
-        if (address == null || address.trim().isEmpty())
-            throw new PayrollDataException("Address cannot be empty");
         this.address = address;
-
-        if (phone == null || !phone.matches("\\d{10}"))
-            throw new PayrollDataException("Phone must be exactly 10 digits");
-        this.phone = phone;
-
-        if (email == null || !email.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$"))
-            throw new PayrollDataException("Invalid email format");
+        this.phoneNumber = phoneNumber;
         this.email = email;
     }
 
     public String getCompanyName() { return companyName; }
     public String getAddress() { return address; }
-    public String getPhone() { return phone; }
+    public String getPhoneNumber() { return phoneNumber; }
     public String getEmail() { return email; }
 }

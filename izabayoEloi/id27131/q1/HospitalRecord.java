@@ -7,279 +7,125 @@ public final class HospitalRecord {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("\nWork done by Eloi id:27131\n");
-        // ===== Entity =====
-        int id = 0;
-        while (true) {
+        // Entity
+        Entity entity = null;
+        while (entity == null) {
             try {
                 System.out.print("Enter ID: ");
-                id = Integer.parseInt(sc.nextLine());
-                if (id <= 0) throw new HospitalDataException("ID must be greater than 0");
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("ID must be a number");
-            } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        String createdDate = "";
-        while (true) {
-            try {
+                int id = Integer.parseInt(sc.nextLine());
                 System.out.print("Enter Created Date: ");
-                createdDate = sc.nextLine();
-                if (createdDate.trim().isEmpty()) throw new HospitalDataException("Created date cannot be empty");
-                break;
-            } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        String updatedDate = "";
-        while (true) {
-            try {
+                String createdDate = sc.nextLine();
                 System.out.print("Enter Updated Date: ");
-                updatedDate = sc.nextLine();
-                if (updatedDate.trim().isEmpty()) throw new HospitalDataException("Updated date cannot be empty");
-                break;
+                String updatedDate = sc.nextLine();
+
+                entity = new Entity(id, createdDate, updatedDate);
+            } catch (NumberFormatException e) {
+                System.out.println("ID must be a number. Please try again.");
             } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
+                System.out.println("Error: " + e.getMessage() + ". Please try again.");
             }
         }
 
-        Entity entity = new Entity(id, createdDate, updatedDate);
-
-        // ===== Hospital =====
-        String hospitalName = "";
-        while (true) {
+        // Hospital
+        Hospital hospital = null;
+        while (hospital == null) {
             try {
                 System.out.print("Hospital Name: ");
-                hospitalName = sc.nextLine();
-                if (hospitalName.trim().isEmpty()) throw new HospitalDataException("Hospital name cannot be empty");
-                break;
-            } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        String hospitalAddress = "";
-        while (true) {
-            try {
+                String hospitalName = sc.nextLine();
                 System.out.print("Hospital Address: ");
-                hospitalAddress = sc.nextLine();
-                if (hospitalAddress.trim().isEmpty()) throw new HospitalDataException("Hospital address cannot be empty");
-                break;
-            } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        String hospitalPhone = "";
-        while (true) {
-            try {
+                String hospitalAddress = sc.nextLine();
                 System.out.print("Hospital Phone (10 digits): ");
-                hospitalPhone = sc.nextLine();
-                if (!hospitalPhone.matches("\\d{10}")) throw new HospitalDataException("Phone must be 10 digits");
-                break;
-            } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        String hospitalEmail = "";
-        while (true) {
-            try {
+                String hospitalPhone = sc.nextLine();
                 System.out.print("Hospital Email: ");
-                hospitalEmail = sc.nextLine();
-                if (!hospitalEmail.matches(".+@.+")) throw new HospitalDataException("Invalid email format");
-                break;
+                String hospitalEmail = sc.nextLine();
+
+                hospital = new Hospital(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
+                                        hospitalName, hospitalAddress, hospitalPhone, hospitalEmail);
             } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
+                System.out.println("Error: " + e.getMessage() + ". Please try again.");
             }
         }
 
-        Hospital hospital= new Hospital(id, createdDate, updatedDate, hospitalName, hospitalAddress, hospitalPhone, hospitalEmail);
-
-        // ===== Department =====
-        String departmentName = "";
-        while (true) {
+        // Department
+        Department department = null;
+        while (department == null) {
             try {
                 System.out.print("Department Name: ");
-                departmentName = sc.nextLine();
-                if (departmentName.trim().isEmpty()) throw new HospitalDataException("Department name cannot be empty");
-                break;
-            } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        String departmentCode = "";
-        while (true) {
-            try {
+                String departmentName = sc.nextLine();
                 System.out.print("Department Code (≥3 chars): ");
-                departmentCode = sc.nextLine();
-                if (departmentCode.length() < 3) throw new HospitalDataException("Code must be at least 3 chars");
-                break;
+                String departmentCode = sc.nextLine();
+
+                department = new Department(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
+                                            hospital.getHospitalName(), hospital.getAddress(),
+                                            hospital.getPhoneNumber(), hospital.getEmail(),
+                                            departmentName, departmentCode);
             } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
+                System.out.println("Error: " + e.getMessage() + ". Please try again.");
             }
         }
 
-        Department department = new Department(id, createdDate, updatedDate, hospitalName, hospitalAddress, hospitalPhone, hospitalEmail, departmentName, departmentCode);
-
-        // ===== Doctor =====
-        String doctorName = "";
-        while (true) {
+        // Doctor
+        Doctor doctor = null;
+        while (doctor == null) {
             try {
                 System.out.print("Doctor Name: ");
-                doctorName = sc.nextLine();
-                if (doctorName.trim().isEmpty()) throw new HospitalDataException("Doctor name cannot be empty");
-                break;
-            } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        String specialization = "";
-        while (true) {
-            try {
+                String doctorName = sc.nextLine();
                 System.out.print("Specialization: ");
-                specialization = sc.nextLine();
-                if (specialization.trim().isEmpty()) throw new HospitalDataException("Specialization cannot be empty");
-                break;
-            } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        String doctorEmail = "";
-        while (true) {
-            try {
+                String specialization = sc.nextLine();
                 System.out.print("Doctor Email: ");
-                doctorEmail = sc.nextLine();
-                if (!doctorEmail.matches(".+@.+")) throw new HospitalDataException("Invalid email format");
-                break;
-            } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        String doctorPhone = "";
-        while (true) {
-            try {
+                String doctorEmail = sc.nextLine();
                 System.out.print("Doctor Phone (10 digits): ");
-                doctorPhone = sc.nextLine();
-                if (!doctorPhone.matches("\\d{10}")) throw new HospitalDataException("Phone must be 10 digits");
-                break;
+                String doctorPhone = sc.nextLine();
+
+                doctor = new Doctor(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
+                                    hospital.getHospitalName(), hospital.getAddress(),
+                                    hospital.getPhoneNumber(), hospital.getEmail(),
+                                    department.getDepartmentName(), department.getDepartmentCode(),
+                                    doctorName, specialization, doctorEmail, doctorPhone);
             } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
+                System.out.println("Error: " + e.getMessage() + ". Please try again.");
             }
         }
 
-        Doctor doctor=new Doctor(id, createdDate, updatedDate, hospitalName, hospitalAddress, hospitalPhone, 
-            hospitalEmail, departmentName, departmentCode, doctorName, specialization, 
-            doctorEmail, doctorPhone);
-
-        // ===== Nurse =====
-        String nurseName = "";
-        while (true) {
+        // Nurse
+        Nurse nurse = null;
+        while (nurse == null) {
             try {
                 System.out.print("Nurse Name: ");
-                nurseName = sc.nextLine();
-                if (nurseName.trim().isEmpty()) throw new HospitalDataException("Nurse name cannot be empty");
-                break;
-            } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        String shift = "";
-        while (true) {
-            try {
+                String nurseName = sc.nextLine();
                 System.out.print("Shift (Day/Night): ");
-                shift = sc.nextLine();
-                if (!shift.equalsIgnoreCase("Day") && !shift.equalsIgnoreCase("Night"))
-                    throw new HospitalDataException("Shift must be Day or Night");
-                break;
-            } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        int yearsOfExperience = 0;
-        while (true) {
-            try {
+                String shift = sc.nextLine();
                 System.out.print("Years of Experience: ");
-                yearsOfExperience = Integer.parseInt(sc.nextLine());
-                if (yearsOfExperience < 0) throw new HospitalDataException("Years must be ≥ 0");
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Years must be a number");
-            } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+                int yearsOfExperience = Integer.parseInt(sc.nextLine());
 
-        Nurse nurse = new Nurse(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
+                nurse = new Nurse(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
                                   hospital.getHospitalName(), hospital.getAddress(),
                                   hospital.getPhoneNumber(), hospital.getEmail(),
                                   department.getDepartmentName(), department.getDepartmentCode(),
                                   doctor.getDoctorName(), doctor.getSpecialization(),
                                   doctor.getDoctorEmail(), doctor.getPhone(),
                                   nurseName, shift, yearsOfExperience);
+            } catch (NumberFormatException e) {
+                System.out.println("Years of Experience must be a number. Please try again.");
+            } catch (HospitalDataException e) {
+                System.out.println("Error: " + e.getMessage() + ". Please try again.");
+            }
+        }
 
-        // ===== Patient =====
-        String patientName = "";
-        while (true) {
+        // Patient
+        Patient patient = null;
+        while (patient == null) {
             try {
                 System.out.print("Patient Name: ");
-                patientName = sc.nextLine();
-                if (patientName.trim().isEmpty()) throw new HospitalDataException("Patient name cannot be empty");
-                break;
-            } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        int age = 0;
-        while (true) {
-            try {
+                String patientName = sc.nextLine();
                 System.out.print("Age: ");
-                age = Integer.parseInt(sc.nextLine());
-                if (age <= 0) throw new HospitalDataException("Age must be > 0");
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Age must be a number");
-            } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        String gender = "";
-        while (true) {
-            try {
+                int age = Integer.parseInt(sc.nextLine());
                 System.out.print("Gender (Male/Female/Other): ");
-                gender = sc.nextLine();
-                if (!gender.equalsIgnoreCase("Male") && !gender.equalsIgnoreCase("Female") && !gender.equalsIgnoreCase("Other"))
-                    throw new HospitalDataException("Invalid gender");
-                break;
-            } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        String contactNumber = "";
-        while (true) {
-            try {
+                String gender = sc.nextLine();
                 System.out.print("Contact Number (10 digits): ");
-                contactNumber = sc.nextLine();
-                if (!contactNumber.matches("\\d{10}")) throw new HospitalDataException("Contact number must be 10 digits");
-                break;
-            } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+                String contactNumber = sc.nextLine();
 
-        Patient patient = new Patient(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
+                patient = new Patient(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
                                       hospital.getHospitalName(), hospital.getAddress(),
                                       hospital.getPhoneNumber(), hospital.getEmail(),
                                       department.getDepartmentName(), department.getDepartmentCode(),
@@ -287,47 +133,25 @@ public final class HospitalRecord {
                                       doctor.getDoctorEmail(), doctor.getPhone(),
                                       nurse.getNurseName(), nurse.getShift(), nurse.getYearsOfExperience(),
                                       patientName, age, gender, contactNumber);
+            } catch (NumberFormatException e) {
+                System.out.println("Age must be a number. Please try again.");
+            } catch (HospitalDataException e) {
+                System.out.println("Error: " + e.getMessage() + ". Please try again.");
+            }
+        }
 
-        // ===== Admission =====
-        String admissionDate = "";
-        while (true) {
+        // Admission
+        Admission admission = null;
+        while (admission == null) {
             try {
                 System.out.print("Admission Date: ");
-                admissionDate = sc.nextLine();
-                if (admissionDate.trim().isEmpty()) throw new HospitalDataException("Admission date cannot be empty");
-                break;
-            } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        String roomNumber = "";
-        while (true) {
-            try {
+                String admissionDate = sc.nextLine();
                 System.out.print("Room Number: ");
-                roomNumber = sc.nextLine();
-                if (roomNumber.trim().isEmpty()) throw new HospitalDataException("Room number cannot be empty");
-                break;
-            } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        double roomCharges = 0;
-        while (true) {
-            try {
+                String roomNumber = sc.nextLine();
                 System.out.print("Room Charges: ");
-                roomCharges = Double.parseDouble(sc.nextLine());
-                if (roomCharges <= 0) throw new HospitalDataException("Room charges must be > 0");
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Room charges must be a number");
-            } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+                double roomCharges = Double.parseDouble(sc.nextLine());
 
-        Admission admission = new Admission(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
+                admission = new Admission(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
                                           hospital.getHospitalName(), hospital.getAddress(),
                                           hospital.getPhoneNumber(), hospital.getEmail(),
                                           department.getDepartmentName(), department.getDepartmentCode(),
@@ -337,47 +161,25 @@ public final class HospitalRecord {
                                           patient.getPatientName(), patient.getAge(), patient.getGender(),
                                           patient.getContactNumber(),
                                           admissionDate, roomNumber, roomCharges);
+            } catch (NumberFormatException e) {
+                System.out.println("Room Charges must be a number. Please try again.");
+            } catch (HospitalDataException e) {
+                System.out.println("Error: " + e.getMessage() + ". Please try again.");
+            }
+        }
 
-        // ===== Treatment =====
-        String diagnosis = "";
-        while (true) {
+        // Treatment
+        Treatment treatment = null;
+        while (treatment == null) {
             try {
                 System.out.print("Diagnosis: ");
-                diagnosis = sc.nextLine();
-                if (diagnosis.trim().isEmpty()) throw new HospitalDataException("Diagnosis cannot be empty");
-                break;
-            } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        String treatmentGiven = "";
-        while (true) {
-            try {
+                String diagnosis = sc.nextLine();
                 System.out.print("Treatment Given: ");
-                treatmentGiven = sc.nextLine();
-                if (treatmentGiven.trim().isEmpty()) throw new HospitalDataException("Treatment cannot be empty");
-                break;
-            } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        double treatmentCost = 0;
-        while (true) {
-            try {
+                String treatmentGiven = sc.nextLine();
                 System.out.print("Treatment Cost: ");
-                treatmentCost = Double.parseDouble(sc.nextLine());
-                if (treatmentCost <= 0) throw new HospitalDataException("Treatment cost must be > 0");
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Treatment cost must be a number");
-            } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+                double treatmentCost = Double.parseDouble(sc.nextLine());
 
-        Treatment treatment = new Treatment(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
+                treatment = new Treatment(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
                                           hospital.getHospitalName(), hospital.getAddress(),
                                           hospital.getPhoneNumber(), hospital.getEmail(),
                                           department.getDepartmentName(), department.getDepartmentCode(),
@@ -388,37 +190,23 @@ public final class HospitalRecord {
                                           patient.getContactNumber(),
                                           admission.getAdmissionDate(), admission.getRoomNumber(), admission.getRoomCharges(),
                                           diagnosis, treatmentGiven, treatmentCost);
+            } catch (NumberFormatException e) {
+                System.out.println("Treatment Cost must be a number. Please try again.");
+            } catch (HospitalDataException e) {
+                System.out.println("Error: " + e.getMessage() + ". Please try again.");
+            }
+        }
 
-        // ===== Bill =====
-        double doctorFee = 0;
-        while (true) {
+        // Bill
+        Bill bill = null;
+        while (bill == null) {
             try {
                 System.out.print("Doctor Fee: ");
-                doctorFee = Double.parseDouble(sc.nextLine());
-                if (doctorFee < 0) throw new HospitalDataException("Doctor fee must be >= 0");
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Doctor fee must be a number");
-            } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        double medicineCost = 0;
-        while (true) {
-            try {
+                double doctorFee = Double.parseDouble(sc.nextLine());
                 System.out.print("Medicine Cost: ");
-                medicineCost = Double.parseDouble(sc.nextLine());
-                if (medicineCost < 0) throw new HospitalDataException("Medicine cost must be >= 0");
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Medicine cost must be a number");
-            } catch (HospitalDataException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+                double medicineCost = Double.parseDouble(sc.nextLine());
 
-            Bill bill = new Bill(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
+                bill = new Bill(entity.getId(), entity.getCreatedDate(), entity.getUpdatedDate(),
                                 hospital.getHospitalName(), hospital.getAddress(),
                                 hospital.getPhoneNumber(), hospital.getEmail(),
                                 department.getDepartmentName(), department.getDepartmentCode(),
@@ -430,36 +218,51 @@ public final class HospitalRecord {
                                 admission.getAdmissionDate(), admission.getRoomNumber(), admission.getRoomCharges(),
                                 treatment.getDiagnosis(), treatment.getTreatmentGiven(), treatment.getTreatmentCost(),
                                 doctorFee, medicineCost);
+            } catch (NumberFormatException e) {
+                System.out.println("Fees and Costs must be numbers. Please try again.");
+            } catch (HospitalDataException e) {
+                System.out.println("Error: " + e.getMessage() + ". Please try again.");
+            }
+        }
 
-        // ===== Display Final Bill =====
+        //Display Final Bill
         System.out.println("\nWork done by Eloi id:27131");
         System.out.println("\n=== Final Hospital Billing Record ===");
+        System.out.println("\nEntity Details");
         System.out.println("ID: " + entity.getId());
         System.out.println("Created Date: " + entity.getCreatedDate());
         System.out.println("Updated Date: " + entity.getUpdatedDate());
+        System.out.println("\nHospital Details");
         System.out.println("Hospital Name: " + hospital.getHospitalName());
         System.out.println("Hospital Address: " + hospital.getAddress());
         System.out.println("Hospital Phone: " + hospital.getPhoneNumber());
         System.out.println("Hospital Email: " + hospital.getEmail());
+        System.out.println("\nDepartment Details");
         System.out.println("Department Name: " + department.getDepartmentName());
         System.out.println("Department Code: " + department.getDepartmentCode());
+        System.out.println("\nDoctor Details");
         System.out.println("Doctor Name: " + doctor.getDoctorName());
         System.out.println("Specialization: " + doctor.getSpecialization());
         System.out.println("Doctor Email: " + doctor.getDoctorEmail());
         System.out.println("Doctor Phone: " + doctor.getPhone());
+        System.out.println("\nNurse Details");
         System.out.println("Nurse Name: " + nurse.getNurseName());
         System.out.println("Shift: " + nurse.getShift());
         System.out.println("Years of Experience: " + nurse.getYearsOfExperience());
+        System.out.println("\nPatient Details");
         System.out.println("Patient Name: " + patient.getPatientName());
         System.out.println("Age: " + patient.getAge());
         System.out.println("Gender: " + patient.getGender());
         System.out.println("Contact Number: " + patient.getContactNumber());
+        System.out.println("\nAdmission Details");
         System.out.println("Admission Date: " + admission.getAdmissionDate());
         System.out.println("Room Number: " + admission.getRoomNumber());
         System.out.println("Room Charges: " + admission.getRoomCharges());
+        System.out.println("\nTreatment Detail");
         System.out.println("Diagnosis: " + treatment.getDiagnosis());
         System.out.println("Treatment Given: " + treatment.getTreatmentGiven());
         System.out.println("Treatment Cost: " + treatment.getTreatmentCost());
+        System.out.println("\nBill Details");
         System.out.println("Doctor Fee: " + bill.getDoctorFee());
         System.out.println("Medicine Cost: " + bill.getMedicineCost());
         System.out.println("Total Bill: " + bill.generateBill());

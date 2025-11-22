@@ -6,12 +6,14 @@ public class Company extends Entity {
     private String phoneNumber;
 
     public Company(int id, String createdDate, String updatedDate,
-                   String companyName, String address, String phoneNumber) throws RentalDataException {
+                   String companyName, String address, String phoneNumber) throws RentalException {
         super(id, createdDate, updatedDate);
-        if (companyName == null || companyName.isEmpty()) throw new RentalDataException("Company name cannot be empty");
-        if (address == null || address.isEmpty()) throw new RentalDataException("Address cannot be empty");
-        if (phoneNumber == null || !phoneNumber.matches("\\d{10}"))
-            throw new RentalDataException("Phone number must be exactly 10 digits");
+        if (companyName == null || companyName.trim().isEmpty())
+            throw new RentalException("Company name cannot be empty");
+        if (address == null || address.trim().isEmpty())
+            throw new RentalException("Address cannot be empty");
+        if (!phoneNumber.matches("\\d{10}"))
+            throw new RentalException("Phone must be 10 digits");
         this.companyName = companyName;
         this.address = address;
         this.phoneNumber = phoneNumber;

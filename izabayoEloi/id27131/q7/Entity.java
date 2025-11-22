@@ -1,5 +1,9 @@
 package id27131.q7;
 
+class RealEstateDataException extends Exception {
+    public RealEstateDataException(String message) { super(message); }
+}
+
 public class Entity {
     private int id;
     private String createdDate;
@@ -7,8 +11,9 @@ public class Entity {
 
     public Entity(int id, String createdDate, String updatedDate) throws RealEstateDataException {
         if (id <= 0) throw new RealEstateDataException("ID must be > 0");
-        if (createdDate == null || createdDate.isEmpty()) throw new RealEstateDataException("Created date cannot be empty");
-        if (updatedDate == null || updatedDate.isEmpty()) throw new RealEstateDataException("Updated date cannot be empty");
+        if (createdDate == null || createdDate.isEmpty()) throw new RealEstateDataException("Created date required");
+        if (updatedDate == null || updatedDate.isEmpty()) throw new RealEstateDataException("Updated date required");
+
         this.id = id;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;

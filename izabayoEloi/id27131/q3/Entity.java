@@ -5,17 +5,13 @@ public class Entity {
     private String createdDate;
     private String updatedDate;
 
-    public Entity(int id, String createdDate, String updatedDate) throws PayrollDataException {
-        if (id <= 0)
-            throw new PayrollDataException("ID must be greater than 0");
+    public Entity(int id, String createdDate, String updatedDate) throws PayrollException {
+        if (id <= 0) throw new PayrollException("ID must be greater than 0");
+        if (createdDate == null || createdDate.trim().isEmpty()) throw new PayrollException("Created date cannot be empty");
+        if (updatedDate == null || updatedDate.trim().isEmpty()) throw new PayrollException("Updated date cannot be empty");
+
         this.id = id;
-
-        if (createdDate == null || createdDate.trim().isEmpty())
-            throw new PayrollDataException("Created date cannot be empty");
         this.createdDate = createdDate;
-
-        if (updatedDate == null || updatedDate.trim().isEmpty())
-            throw new PayrollDataException("Updated date cannot be empty");
         this.updatedDate = updatedDate;
     }
 

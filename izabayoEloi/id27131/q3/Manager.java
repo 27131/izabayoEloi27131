@@ -1,25 +1,26 @@
 package id27131.q3;
 
-public class Manager {
+public class Manager extends Department {
     private String managerName;
     private String managerEmail;
-    private String phone;
+    private String phoneNumber;
 
-    public Manager(String managerName, String managerEmail, String phone) throws PayrollDataException {
-        if (managerName == null || managerName.trim().isEmpty())
-            throw new PayrollDataException("Manager name cannot be empty");
+    public Manager(int id, String createdDate, String updatedDate,
+                   String companyName, String address, String companyPhone, String email,
+                   String departmentName, String departmentCode,
+                   String managerName, String managerEmail, String phoneNumber) throws PayrollException {
+        super(id, createdDate, updatedDate, companyName, address, companyPhone, email, departmentName, departmentCode);
+
+        if (managerName == null || managerName.trim().isEmpty()) throw new PayrollException("Manager name cannot be empty");
+        if (!managerEmail.matches(".+@.+")) throw new PayrollException("Invalid email format");
+        if (!phoneNumber.matches("\\d{10}")) throw new PayrollException("Phone must be 10 digits");
+
         this.managerName = managerName;
-
-        if (managerEmail == null || !managerEmail.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$"))
-            throw new PayrollDataException("Invalid email format");
         this.managerEmail = managerEmail;
-
-        if (phone == null || !phone.matches("\\d{10}"))
-            throw new PayrollDataException("Phone must be 10 digits");
-        this.phone = phone;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getManagerName() { return managerName; }
     public String getManagerEmail() { return managerEmail; }
-    public String getPhone() { return phone; }
+    public String getPhoneNumber() { return phoneNumber; }
 }
