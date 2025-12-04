@@ -40,7 +40,7 @@ public class Hospital extends Entity{
         this.email=email;
     }
     public void setphoneNumber(String phoneNumber){
-        if (!phoneNumber.contains("\\d{10}")|| phoneNumber==null) {
+        if (!phoneNumber.matches("\\d{10}")|| phoneNumber==null) {
             throw new IllegalArgumentException("Invalid Phone number");
         }
     }
